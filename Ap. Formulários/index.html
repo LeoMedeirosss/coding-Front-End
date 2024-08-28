@@ -14,17 +14,53 @@
         <form>
 
             <label for="pnome">Primeiro Nome</label>
-            <input type="text" name="nome" id="pnome" placeholder="Primeiro nome">
+            <input type="text" name="nome" id="pnome" placeholder="Primeiro nome" required>
 
                 <br> 
                 <br>
 
             <label for="snome">Sobrenome</label>
-            <input type="text" name="sobrenome" id="snome" placeholder="Último nome">
+            <input type="text" name="sobrenome" id="snome" placeholder="Último nome" required>
 
                 <br>
                 <br>
 
+            <!-- Formulário tipo Rádio (bolinhas) -->
+            <label>
+                <strong> ExemploRadio </strong>
+            </label>
+
+                <br>
+
+            <label>
+                <input type="radio" name="Exemplo" value="Um">1
+            </label>
+            <label>
+                <input type="radio" name="Exemplo" value="Dois">2
+            </label>
+            <label>
+                <input type="radio" name="Exemplo" value="Três">3 
+            </label>
+
+                <br>
+                <br>
+
+            <label for="ExSelect">
+                <strong> ExemploSelect </strong>
+            </label>
+
+                <br>
+
+            <select name="Select" id="ExSelect" required>
+                <option selected disabled value="">Selecione</option>
+                <option>Exemplo1</option>
+                <option>Exemplo2</option>
+                <option>Exemplo3</option>
+            </select>
+
+                <br>
+                <br>
+                
             <input type="submit" value="Confirmar">
 
         </form>
