@@ -1,0 +1,22 @@
+body{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.cabeçalho{
+    color: #080707;
+    width: 600px;
+    margin: auto; /*espaçamento externo*/
+    padding: 50px; /*espaçamento interno*/
+    border: 3px solid gray;
+    border-radius: 20px;
+}
+
+.divisão{
+    margin-right: 593px;
+    margin-left: 600px;
+    margin-top: 50px;
+    background-color: #c4c4c4;
+    border: 1px solid white;
+    border-radius: 15px;
+}
+
