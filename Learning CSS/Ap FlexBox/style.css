@@ -28,13 +28,12 @@ header{
     margin: 40px;
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
 }
 
 .conteiner p{
     font-size: 25px;
     color: white;
-    margin-left: 200px;
-    margin-top: 30px;
 }
 
 .area{
@@ -44,18 +43,15 @@ header{
 
 .item-um{
     background-color: blue;
-    flex: 1;
     order: 2;
 }
 
 .item-dois{
     background-color: red;
-    flex: 1;
     order: 3;
 }
 
 .item-tres{
     background-color: violet;
-    flex: 1;
     order: 1;
 }
