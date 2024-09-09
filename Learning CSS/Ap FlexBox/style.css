@@ -29,6 +29,7 @@ header{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
 }
 
 .conteiner p{
@@ -44,11 +45,13 @@ header{
 .item-um{
     background-color: blue;
     order: 2;
+    align-self: flex-end;
 }
 
 .item-dois{
     background-color: red;
     order: 3;
+    align-self: flex-start;
 }
 
 .item-tres{
