@@ -1,5 +1,8 @@
 *{
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    outline: 0;
 }
 
 body{
@@ -21,9 +24,46 @@ body{
     font-size: 20px;
 }
 
-.qualquer{
-    margin-right: 1000px;
-    position:relative;
-    top: 100px;
-    left: 10px;
+.area{
+    position: relative;
+    width: 600px;
+    height: 400px;
+    border: 3px solid black;
 }
+
+.qualquer{
+    margin-top: 20px;
+    border: 5px solid blue;
+}
+
+/*
+absolute é referente a div pai.
+caso não tenha div pai, é referente ao body.
+*/
+.absoluta{
+    position: absolute;
+    border: 5px solid red;
+    bottom: 0;
+    right: 0;
+}
+ /* 
+ fixed é referente a página completa
+ área completa do browser
+ */
+ .fixo{
+    position: fixed;
+    border: 5px solid green;
+    right: 0;
+    top: 0;
+ }
+
+
+ /* 
+ sticky é posicionado em relação a posição do scroll
+ normalmente o header tem a position sticky.
+ */
+ .sticky{
+    position: sticky;
+    border: 5px solid purple;
+    top: 0;
+ }
