@@ -10,11 +10,12 @@
 body{
     background-color: black;
     size: 100vh;
-    height: 100%;
-    width: 100%;
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .main{
@@ -24,23 +25,32 @@ body{
     height: 550px;
     border-radius: 10px;
     border: 3px solid grey;
-    display: flex;
-    flex-direction: column;
 }
 
 .main h1{
     margin-left: 15px;
     margin-top: 10px;
+    font-weight: bold;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    margin: 5px 0; 
+    background: #1212121c;
+    border-radius: 4px;
+    padding: 0 10px;
+    height: 40px;
 }
 
 input[type="password"], input[type="text"]{
-    background-color: darkgray;
     color: #111111;
     font-size: 18px;
     margin-top: 10px;
     margin: 12px 30px;
-    border-radius: 4px;
-    width: 320px;
     height: 45px;
 }
 
@@ -50,13 +60,12 @@ input[type="submit"]{
     font-size: 18px;
     margin-top: 10px;
     margin: 12px 30px;
-    border-radius: 4px;
-    width: 320px;
     height: 45px;
     transition: 1s;
+    cursor: pointer;
 }
 
 input[type="submit"]:hover{
-    width: 335px;
-    height: 50px;
+    letter-spacing: 0.9px;
+    transform: scale(1.05);
 }
