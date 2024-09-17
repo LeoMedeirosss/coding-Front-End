@@ -43,7 +43,7 @@ input {
     background: #1212121c;
     border-radius: 4px;
     padding: 0 10px;
-    height: 40px;
+    height: 55px;
 }
 
 input[type="password"], input[type="text"]{
@@ -68,4 +68,37 @@ input[type="submit"]{
 input[type="submit"]:hover{
     letter-spacing: 0.9px;
     transform: scale(1.05);
+}
+
+footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.a-twitter{
+    background-color: rgb(55, 107, 189);
+    color: white;
+    font-size: 18px;
+    margin-top: 10px;
+    margin: 12px 30px;
+    height: 45px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.a-facebook{
+    background-color: blue;
+    color: white;
+    font-size: 18px;
+    margin-top: 100px;
+    margin: 12px 30px;
+    height: 45px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.a-facebook:hover, .a-twitter:hover{
+    transform: scale(1.10);
 }
