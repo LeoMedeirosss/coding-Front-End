@@ -31,13 +31,24 @@ img{
     border-radius: 20px;
 }
 
+p, li{
+    color: rgb(82, 82, 82);
+    text-indent:10px;
+}
+
+.header p{
+    padding-left: 22px;
+    padding-right: 22px;
+    text-align:center;
+}
+
 h1{
     font-family: serif;
     padding-left: 35px;
     padding-top: 10px;
     padding-bottom: 15px;
-    font-weight: bold;
-    font-size: 50px;
+    font-size: 53px;
+    font-weight:540;
 }
 
 h2{
