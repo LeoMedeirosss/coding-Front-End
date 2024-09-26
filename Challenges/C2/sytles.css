@@ -7,14 +7,20 @@
 }
 
 body{
-    height: 150vh;
-    background-color: #ebd4a2;
+    height: 100vh;
+    background-color: #f7e8c6;
 }
 
 .conteiner{
-    height: 540px;
+    height: auto;
     display: flex;
     flex-direction: column;
+    width: auto;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    margin: 150px 200px;
+    border-radius: 15px;
 }
 
 .attribution { 
