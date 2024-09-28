@@ -89,7 +89,10 @@ h2{
     padding-left: 10px;
 }
 
-
+.nutricion h2{
+    padding-top: 25px;
+    padding-bottom: 10px;
+}
 
 h3{
     color:rgb(114, 46, 240);
