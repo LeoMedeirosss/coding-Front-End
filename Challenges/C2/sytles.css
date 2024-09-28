@@ -24,7 +24,7 @@ body{
 }
 
 img{
-    width: 700px;
+    width: 650px;
     padding-top: 45px;
     padding-bottom: 10px;
     border-radius: 20px;
@@ -57,18 +57,39 @@ h2{
     padding-left: 35px;
 }
 
-.preparation{
+.prepcont{
     background-color: #f1ebf5;
-    border-radius: 10px;
-    border: 0 35px;
-    padding: 0 40px;
     display: flex;
     flex-direction: column;
+    width: 600px;
+    border-radius: 10px;
+    justify-content: center;
+    justify-items: center;
+}
+
+.preparation{
+    padding: 0 40px;
 }
 
 .preparation li{
     padding: 8px 0;
 }
+
+.ingredients h2, .instructions h2{
+    padding-bottom: 15px;
+    padding-top: 10px;
+}
+
+.ingredients ul, .instructions ol{
+    padding-left: 35px;
+}
+
+.ingredients li, .instructions li{
+    padding-top: 15px;
+    padding-left: 10px;
+}
+
+
 
 h3{
     color:rgb(114, 46, 240);
