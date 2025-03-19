@@ -1,0 +1,136 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilizando o corpo da página */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+}
+
+/* Título principal */
+h1 {
+    font-size: 36px;
+    text-align: center;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+/* Estilizando a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+/* Estilizando as células de links */
+td.links ul {
+    list-style-type: none;
+}
+
+td.links li {
+    margin: 10px 0;
+}
+
+td.links a {
+    text-decoration: none;
+    color: #4CAF50;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+td.links a:hover {
+    color: #f44336;
+}
+
+/* Estilizando a seção de vídeo */
+td.video a {
+    font-size: 18px;
+    color: #2196F3;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+td.video a:hover {
+    color: #f44336;
+}
+
+/* Estilizando as fotos */
+td.fotos img {
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+td.fotos img:hover {
+    transform: scale(1.1);
+}
+
+/* Estilizando o texto */
+td.texto p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* Estilizando o iframe PDF */
+td.pdf iframe {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Adicionando bordas e fundo nas células */
+th {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+}
+
+td {
+    background-color: white;
+}
+
+/* Estilizando links na tabela */
+a {
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #FF5722;
+}
+
+/* Estilizando os links de texto com pseudoclasses */
+a:focus {
+    outline: 3px solid #FF5722;
+}
+
+/* Pseudo-classes para inputs ou caixas de texto */
+input, textarea {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:hover, textarea:hover {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+input:focus, textarea:focus {
+    border-color: #2196F3;
+    box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
+}
