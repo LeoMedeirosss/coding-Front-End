@@ -90,9 +90,31 @@ iframe {
     border-radius: 5px;
 }
 
-/* Responsividade */
-@media (max-width: 600px) {
+/* Responsividade para tablets (768px - 1024px) */
+@media (max-width: 1024px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    h1 {
+        font-size: 28px;
+    }
+    .image-grid img {
+        width: 100px;
+    }
+}
+
+/* Responsividade para celulares (menos de 768px) */
+@media (max-width: 768px) {
     .grid-container {
         grid-template-columns: 1fr;
+    }
+    h1 {
+        font-size: 24px;
+    }
+    .card {
+        padding: 10px;
+    }
+    .image-grid img {
+        width: 80px;
     }
 }
