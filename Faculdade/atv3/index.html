@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor de Texto</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Editor de Texto</h2>
+    <textarea id="texto" rows="5" placeholder="Digite o texto aqui..."></textarea>
+    <input type="text" id="palavrasProibidas" placeholder="Palavras proibidas (separadas por vírgula)">
+    <input type="text" id="palavrasNovas" placeholder="Novas palavras (separadas por vírgula)">
+    <br>
+    <button class="contar" onclick="contarPalavras()">Contar</button>
+    <button class="trocar" onclick="trocarPalavras()">Trocar</button>
+    <button class="limpar" onclick="limparCampos()">Limpar</button>
+    <p id="resultado"></p>
+    <script src="script.js"></script>
+</body>
+</html>
