@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitação de Serviços de TI</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="carrinho-container">
+        <h2>Solicitação de Serviços de TI</h2>
+
+        <!-- Seção do usuário logado -->
+        <div class="user-info">
+            <p><strong>Nome:</strong> João Silva</p>
+            <p><strong>E-mail:</strong> joao.silva@email.com</p>
+        </div>
+
+        <!-- Seção das solicitações existentes -->
+        <h3>Solicitações Anteriores</h3>
+        <table id="solicitacoes">
+            <thead>
+                <tr>
+                    <th>Data do Pedido</th>
+                    <th>Nº Solicitação</th>
+                    <th>Serviço</th>
+                    <th>Status</th>
+                    <th>Preço</th>
+                    <th>Data Prevista</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>01/04/2025</td>
+                    <td>1001</td>
+                    <td>Suporte Remoto</td>
+                    <td>Concluído</td>
+                    <td>R$ 150,00</td>
+                    <td>02/04/2025</td>
+                    <td><button class="btn-excluir">Excluir</button></td>
+                </tr>
+                <tr>
+                    <td>25/03/2025</td>
+                    <td>1002</td>
+                    <td>Backup em Nuvem</td>
+                    <td>Pendente</td>
+                    <td>R$ 200,00</td>
+                    <td>27/03/2025</td>
+                    <td><button class="btn-excluir">Excluir</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Seção de nova solicitação -->
+        <h3>Nova Solicitação</h3>
+        <form id="nova-solicitacao">
+            <label for="servico">Serviço de TI:</label>
+            <select id="servico">
+                <option value="suporte">Suporte Remoto</option>
+                <option value="backup">Backup em Nuvem</option>
+                <option value="seguranca">Segurança Digital</option>
+                <option value="infra">Infraestrutura de Redes</option>
+            </select>
+
+            <label for="preco">Preço:</label>
+            <span id="preco">R$ 150,00</span>
+
+            <label for="prazo">Prazo de Atendimento:</label>
+            <span id="prazo">1 dia</span>
+
+            <label for="data-prevista">Data Prevista:</label>
+            <span id="data-prevista">02/04/2025</span>
+
+            <label for="status">Status:</label>
+            <span id="status">EM ELABORAÇÃO</span>
+
+            <button type="button" id="btn-incluir">Incluir Solicitação</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
