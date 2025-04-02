@@ -16,6 +16,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const clearButton = document.getElementById("btn-clear");
     const errorMessage = document.getElementById("error-message");
 
+    if (!emailInput || !passwordInput || !loginButton || !clearButton || !errorMessage) {
+        console.error("Erro: Um ou mais elementos não foram encontrados no DOM.");
+        return;
+    }
+
     // Função para validar e-mail
     function validarEmail(email) {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -40,6 +45,23 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!password) {
             errorMessage.textContent = "O campo de senha deve ser preenchido.";
             return;
+        }
+
+        const usuarios = {
+            "joao.silva@email.com": { nome: "João Silva", senha: "Senha123@" },
+            "maria.santos@email.com": { nome: "Maria Santos", senha: "Maria123@" }
+        };
+
+        if (usuarios[email] && usuarios[email].senha === password) {
+            // Armazena os dados no sessionStorage
+            sessionStorage.setItem("usuarioLogado", "true");
+            sessionStorage.setItem("nomeUsuario", usuarios[email].nome);
+            sessionStorage.setItem("emailUsuario", email);
+
+            alert("Login realizado com sucesso!");
+            window.location.href = "carrinho.html";  // Redireciona para o carrinho
+        } else {
+            errorMessage.textContent = "E-mail ou senha incorretos.";
         }
 
         // Se tudo estiver correto, mostrar mensagem e navegar
@@ -162,6 +184,21 @@ document.addEventListener("DOMContentLoaded", function() {
         return /^\d{3}\.\d{3}\.\d{3}-\d{2}$/.test(cpf); 
     }
 
+    function validarSenha(senha) {
+        const permitido = /[@#$%&*!?/\\|_\-+=.]/;  // Caracteres especiais permitidos
+        const proibido = /[¨{}\[\]´`~^:;<>,“‘]/;  // Caracteres especiais proibidos
+        const temNumero = /\d/;
+        const temMaiuscula = /[A-Z]/;
+    
+        return (
+            senha.length >= 6 &&
+            temNumero.test(senha) &&
+            temMaiuscula.test(senha) &&
+            permitido.test(senha) &&
+            !proibido.test(senha)
+        );
+    }
+
     function validarIdade(dataNascimento) {
         const hoje = new Date();
         const nascimento = new Date(dataNascimento);
@@ -178,6 +215,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (!validarCPF(cpfInput.value)) {
             errorMessage.textContent = "CPF inválido.";
+            return;
+        }
+
+        if (!validarSenha(senhaInput.value)) {
+            errorMessage.textContent = "A senha deve ter pelo menos 6 caracteres, um número, uma letra maiúscula e um caractere especial permitido (@#$%&*!?/\\|_-+=.).";
+            return;
+        }
+    
+        if (senhaInput.value !== confirmarSenhaInput.value) {
+            errorMessage.textContent = "As senhas não coincidem.";
             return;
         }
 
@@ -217,6 +264,19 @@ document.addEventListener("DOMContentLoaded", function() {
     const dataPrevistaLabel = document.getElementById("data-prevista");
     const incluirButton = document.getElementById("btn-incluir");
     const tabela = document.getElementById("solicitacoes").querySelector("tbody");
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const nomeLabel = document.getElementById("nome-usuario");
+        const emailLabel = document.getElementById("email-usuario");
+    
+        // Recupera os dados do usuário do sessionStorage
+        const nomeUsuario = sessionStorage.getItem("nomeUsuario") || "Usuário Desconhecido";
+        const emailUsuario = sessionStorage.getItem("emailUsuario") || "email@desconhecido.com";
+    
+        // Atualiza os labels com os dados armazenados
+        nomeLabel.textContent = nomeUsuario;
+        emailLabel.textContent = emailUsuario;
+    });
 
     const servicos = {
         "suporte": { preco: "R$ 150,00", prazo: 1 },

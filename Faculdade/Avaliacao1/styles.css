@@ -32,6 +32,12 @@ main {
     padding: 20px;
 }
 
+.click li{
+    padding: 3px;
+    gap: 5px;
+    list-style: none;
+}
+
 section {
     margin-bottom: 30px;
 }
@@ -44,7 +50,7 @@ h2 {
 .email{
     font-style: normal;
     text-decoration: none;
-    color: #007BFF;
+    color: crimson;
 }
 
 .fotos {
@@ -145,7 +151,7 @@ input {
 }
 
 .error-message {
-    color: red;
+    color: crimson;
     font-size: 14px;
     margin-top: 5px;
 }
@@ -174,7 +180,7 @@ button:hover {
     display: block;
     margin-top: 5px;
     text-decoration: none;
-    color: #007BFF;
+    color: crimson;
 }
 
 .links a:hover {
@@ -217,12 +223,6 @@ input {
 
 .regras-senha ul {
     padding-left: 20px;
-}
-
-.error-message {
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
 }
 
 button {
@@ -332,7 +332,7 @@ button {
 }
 
 button:hover {
-    background: darkred;
+    background: crimson;
 }
 
 form {
