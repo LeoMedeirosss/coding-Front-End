@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Controle de Contas Correntes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <h1>Controle de Contas Correntes</h1>
+
+  <table id="tabelaContas">
+    <thead>
+      <tr>
+        <th onclick="ordenarPor('nome')">Nome</th>
+        <th onclick="ordenarPor('saldo')">Saldo</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div id="formulario">
+    <label>Valor: <input type="number" id="valorOperacao" /></label>
+    <label>Nome do correntista: <input type="text" id="nomeCorrentista" /></label>
+    <label><input type="radio" name="operacao" value="credito" checked /> Crédito</label>
+    <label><input type="radio" name="operacao" value="debito" /> Débito</label>
+    <button onclick="realizarOperacao()">Executar</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
