@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Jogo da Memória</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Jogo da Memória</h1>
+
+  <div id="setup">
+    <label>Quantidade de Jogadores (2 a 6): <input type="number" id="numJogadores" min="2" max="6"></label><br>
+    <div id="nomesJogadores"></div>
+    <label>Quantidade de Peças (8 a 32, pares): <input type="number" id="numPecas" min="8" max="32" step="2"></label><br>
+    <button onclick="gerarInputsNomes()">Gerar Nomes</button>
+    <button onclick="iniciarJogo()">Iniciar Jogo</button>
+  </div>
+
+  <div id="pontuacao" class="hidden"></div>
+  <div id="turno" class="hidden"></div>
+  <div id="tabuleiro" class="grid hidden"></div>
+
+  <div id="vitoria" class="hidden">
+    <h2>🎉 Jogo Finalizado!</h2>
+    <div id="resultadoFinal"></div>
+    <button onclick="reiniciar()">Voltar para o início</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
