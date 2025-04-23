@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blackjack Online</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="container">
+    <h1>Blackjack (21) Online</h1>
+
+    <form id="setupForm">
+      <label for="players">Jogadores (2 a 4):</label>
+      <input type="number" id="players" min="2" max="4" required>
+
+      <div id="namesContainer"></div>
+
+      <label for="timeout">Tempo por jogador (segundos):</label>
+      <input type="number" id="timeout" min="5" max="60" required>
+
+      <div id="namesContainer"></div>
+
+      <button type="submit">Iniciar Partida</button>
+    </form>
+
+    <div id="gameArea" class="hidden">
+      <div id="scoreBoard"></div>
+      <div id="dealerArea" class="cardArea">
+        <h2>Banca</h2>
+        <div class="cards" id="dealerCards"></div>
+        <p id="dealerTotal"></p>
+      </div>
+
+      <div id="playersArea"></div>
+
+      <div id="controls">
+        <button id="hitBtn">Pedir Carta</button>
+        <button id="standBtn">Parar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
