@@ -10,11 +10,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //VALIDAÇÕES LOGIN
 
-if (sessionStorage.getItem("usuarioLogado") !== "true") {
-    alert("Você precisa estar logado para acessar esta página.");
-    window.location.href = "login.html";
-}
-
 document.addEventListener("DOMContentLoaded", function() {
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
@@ -53,10 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        const usuarios = {
-            "joao.silva@email.com": { nome: "João Silva", senha: "Senha123@" },
-            "maria.santos@email.com": { nome: "Maria Santos", senha: "Maria123@" }
-        };
+        const usuarios = JSON.parse(localStorage.getItem("usuarios")) || {};
 
         if (usuarios[email] && usuarios[email].senha === password) {
             // Armazena os dados no sessionStorage
@@ -79,6 +71,48 @@ document.addEventListener("DOMContentLoaded", function() {
         emailInput.focus();
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const isLoggedIn = sessionStorage.getItem("usuarioLogado") === "true";
+
+    const btnLogin = document.getElementById("btn-login");
+    const btnCadastrar = document.getElementById("btn-cadastrar");
+    const btnLogout = document.getElementById("btn-logout");
+    const btnSolicitacao = document.getElementById("solicitacao-servico");
+    const btnTrocarSenha = document.getElementById("trocar-senha");
+    const mensagemBemVindo = document.getElementById("bem-vindo");
+
+    if (isLoggedIn) {
+        // Oculta botões de login/cadastro
+        btnLogin.style.display = "none";
+        btnCadastrar.style.display = "none";
+
+        // Mostra botões restritos
+        btnLogout.style.display = "inline-block";
+        btnSolicitacao.style.display = "inline-block";
+        btnTrocarSenha.style.display = "inline-block";
+
+        // Exibe mensagem de boas-vindas
+        const nome = sessionStorage.getItem("nomeUsuario");
+        mensagemBemVindo.textContent = `Olá, ${nome}!`;
+    } else {
+        // Usuário não logado: mostra login/cadastro e esconde o resto
+        btnLogin.style.display = "inline-block";
+        btnCadastrar.style.display = "inline-block";
+        btnLogout.style.display = "none";
+        btnSolicitacao.style.display = "none";
+        btnTrocarSenha.style.display = "none";
+        mensagemBemVindo.textContent = "";
+    }
+
+    // Evento de logout
+    btnLogout.addEventListener("click", function () {
+        sessionStorage.clear();
+        window.location.reload();
+        window.location.href = "../index.html";
+    });
+});
+
 
 document.addEventListener("DOMContentLoaded", function() {
     const nomeUsuario = sessionStorage.getItem("nomeUsuario");
@@ -245,7 +279,39 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         alert("Validação realizada com sucesso!");
-    });
+
+        // Criar ou carregar os usuários do localStorage
+        let usuarios = JSON.parse(localStorage.getItem("usuarios")) || {};
+
+        // Verificar se o e-mail já está cadastrado
+        if (usuarios[emailInput.value]) {
+            errorMessage.textContent = "Este e-mail já está cadastrado.";
+            return;
+        }
+
+        // Adiciona o novo usuário
+        usuarios[emailInput.value] = {
+        nome: nomeInput.value,
+        senha: senhaInput.value,
+        cpf: cpfInput.value,
+        dataNascimento: dataNascimentoInput.value,
+        telefone: telefoneInput.value,
+        estadoCivil: document.querySelector('input[name="estado-civil"]:checked').value,
+        escolaridade: document.getElementById("escolaridade").value
+};
+
+        // Salva os usuários no localStorage
+        localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+        sessionStorage.setItem("usuarioLogado", "true");
+        sessionStorage.setItem("nomeUsuario", nomeInput.value);
+        sessionStorage.setItem("emailUsuario", emailInput.value);
+
+
+        // Redireciona para a tela de login (ou home)
+        alert("Usuário cadastrado com sucesso!");
+        window.location.href = "../index.html";  // troque pelo nome da página desejada
+        });
 
     clearButton.addEventListener("click", function() {
         emailInput.value = "";
@@ -267,13 +333,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 //INTERATIVITADE CARRINHO 
-
-document.addEventListener("DOMContentLoaded", function() {
-    if (!sessionStorage.getItem("usuarioLogado")) {
-        alert("Você precisa estar logado para acessar esta página.");
-        window.location.href = "login.html";
-    }
-});
 
 document.addEventListener("DOMContentLoaded", function() {
     const servicoSelect = document.getElementById("servico");
