@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Se tudo estiver correto, mostrar mensagem e navegar
         alert("Validação realizada com sucesso!");
         sessionStorage.setItem("usuarioLogado", "true");  // Simula um login
-        window.location.href = "index.html";
+        window.location.href = "../index.html";
     });
 
     // Evento de clique no botão "Limpar"
