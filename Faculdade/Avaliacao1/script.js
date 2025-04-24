@@ -9,6 +9,12 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 //VALIDAÇÕES LOGIN
+
+if (sessionStorage.getItem("usuarioLogado") !== "true") {
+    alert("Você precisa estar logado para acessar esta página.");
+    window.location.href = "login.html";
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
@@ -59,15 +65,10 @@ document.addEventListener("DOMContentLoaded", function() {
             sessionStorage.setItem("emailUsuario", email);
 
             alert("Login realizado com sucesso!");
-            window.location.href = "carrinho.html";  // Redireciona para o carrinho
+            window.location.href = "../index.html";
         } else {
             errorMessage.textContent = "E-mail ou senha incorretos.";
         }
-
-        // Se tudo estiver correto, mostrar mensagem e navegar
-        alert("Validação realizada com sucesso!");
-        sessionStorage.setItem("usuarioLogado", "true");  // Simula um login
-        window.location.href = "../index.html";
     });
 
     // Evento de clique no botão "Limpar"
@@ -77,6 +78,16 @@ document.addEventListener("DOMContentLoaded", function() {
         errorMessage.textContent = "";
         emailInput.focus();
     });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const nomeUsuario = sessionStorage.getItem("nomeUsuario");
+    if (nomeUsuario) {
+        const bemVindo = document.getElementById("bem-vindo");
+        if (bemVindo) {
+            bemVindo.textContent = `Olá, ${nomeUsuario}`;
+        }
+    }
 });
 
 //VALIDAÇÕES DE TROCA DE SENHA
@@ -256,6 +267,13 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 //INTERATIVITADE CARRINHO 
+
+document.addEventListener("DOMContentLoaded", function() {
+    if (!sessionStorage.getItem("usuarioLogado")) {
+        alert("Você precisa estar logado para acessar esta página.");
+        window.location.href = "login.html";
+    }
+});
 
 document.addEventListener("DOMContentLoaded", function() {
     const servicoSelect = document.getElementById("servico");
