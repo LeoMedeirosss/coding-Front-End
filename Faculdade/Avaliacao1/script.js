@@ -334,7 +334,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //INTERATIVITADE CARRINHO 
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const servicoSelect = document.getElementById("servico");
     const precoLabel = document.getElementById("preco");
     const prazoLabel = document.getElementById("prazo");
@@ -342,18 +342,16 @@ document.addEventListener("DOMContentLoaded", function() {
     const incluirButton = document.getElementById("btn-incluir");
     const tabela = document.getElementById("solicitacoes").querySelector("tbody");
 
-    document.addEventListener("DOMContentLoaded", function() {
-        const nomeLabel = document.getElementById("nome-usuario");
-        const emailLabel = document.getElementById("email-usuario");
-    
-        // Recupera os dados do usuário do sessionStorage
-        const nomeUsuario = sessionStorage.getItem("nomeUsuario") || "Usuário Desconhecido";
-        const emailUsuario = sessionStorage.getItem("emailUsuario") || "email@desconhecido.com";
-    
-        // Atualiza os labels com os dados armazenados
-        nomeLabel.textContent = nomeUsuario;
-        emailLabel.textContent = emailUsuario;
-    });
+    const nomeLabel = document.getElementById("nome-usuario");
+    const emailLabel = document.getElementById("email-usuario");
+
+    // Recupera os dados do usuário do sessionStorage
+    const nomeUsuario = sessionStorage.getItem("nomeUsuario") || "Usuário Desconhecido";
+    const emailUsuario = sessionStorage.getItem("emailUsuario") || "email@desconhecido.com";
+
+    // Atualiza os labels com os dados armazenados
+    nomeLabel.textContent = nomeUsuario;
+    emailLabel.textContent = emailUsuario;
 
     const servicos = {
         "suporte": { preco: "R$ 150,00", prazo: 1 },
@@ -366,8 +364,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const servicoSelecionado = servicoSelect.value;
         const dados = servicos[servicoSelecionado];
 
-        precoLabel.textContent = dados.preco;
-        prazoLabel.textContent = `${dados.prazo} dias`;
+        precoLabel.value = dados.preco;
+        prazoLabel.textContent = `${dados.prazo} dia${dados.prazo > 1 ? "s" : ""}`;
 
         let dataAtual = new Date();
         dataAtual.setDate(dataAtual.getDate() + dados.prazo);
@@ -376,13 +374,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     servicoSelect.addEventListener("change", atualizarInformacoesServico);
+    atualizarInformacoesServico(); // Para preencher os valores iniciais
 
-    incluirButton.addEventListener("click", function() {
+    incluirButton.addEventListener("click", function () {
         const dataPedido = new Date().toLocaleDateString("pt-BR");
         const numSolicitacao = Math.floor(Math.random() * 9000) + 1000;
         const servico = servicoSelect.options[servicoSelect.selectedIndex].text;
-        const preco = precoLabel.textContent;
-        const prazo = prazoLabel.textContent;
+        const preco = precoLabel.value;
         const dataPrevista = dataPrevistaLabel.textContent;
         const status = "EM ELABORAÇÃO";
 
@@ -403,7 +401,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function atualizarEventosExcluir() {
         document.querySelectorAll(".btn-excluir").forEach(button => {
-            button.addEventListener("click", function() {
+            button.addEventListener("click", function () {
                 this.closest("tr").remove();
             });
         });
