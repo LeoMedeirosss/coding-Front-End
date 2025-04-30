@@ -1,0 +1,140 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif,Arial, sans-serif;
+}
+
+header {
+    background: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+button {
+    padding: 3px;
+    border-radius: 8px;
+    color: black;
+    transition: 0.2s;
+}
+
+button:hover{
+    transform: scale(1.05);
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+nav a:hover {
+    color: crimson;
+    transition: 0.2s;
+}
+
+main {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.click li{
+    padding: 3px;
+    gap: 5px;
+    list-style: none;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-family: 'Georgia', serif;
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+}
+.email{
+    font-style: normal;
+    text-decoration: none;
+    color: crimson;
+}
+
+.fotos {
+    display: flex;
+    gap: 45px;
+    overflow-x: auto;
+    padding: 10px;
+    width: 100%;
+}
+
+.fotos img {
+    width: 250px;
+    height: auto;
+    border-radius: 6px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 5px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: #333;
+    color: white;
+}
+
+footer {
+    background: #222;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+.video{
+    align-items: center;
+}
+
+.pagamentos{
+    display: flex;
+    gap: 20px;
+}
+
+.icone{
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+}
+
+.logo {
+    width: 75px;
+    margin-bottom: 10px;
+    border-radius: 50px;
+}
+
+@media (max-width: 600px) {
+    .fotos {
+        flex-direction: column;
+        align-items: center;
+    }
+}

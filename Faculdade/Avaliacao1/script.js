@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 //VALIDAÇÕES LOGIN
+
 document.addEventListener("DOMContentLoaded", function() {
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
@@ -47,10 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        const usuarios = {
-            "joao.silva@email.com": { nome: "João Silva", senha: "Senha123@" },
-            "maria.santos@email.com": { nome: "Maria Santos", senha: "Maria123@" }
-        };
+        const usuarios = JSON.parse(localStorage.getItem("usuarios")) || {};
 
         if (usuarios[email] && usuarios[email].senha === password) {
             // Armazena os dados no sessionStorage
@@ -59,15 +57,10 @@ document.addEventListener("DOMContentLoaded", function() {
             sessionStorage.setItem("emailUsuario", email);
 
             alert("Login realizado com sucesso!");
-            window.location.href = "carrinho.html";  // Redireciona para o carrinho
+            window.location.href = "../index.html";
         } else {
             errorMessage.textContent = "E-mail ou senha incorretos.";
         }
-
-        // Se tudo estiver correto, mostrar mensagem e navegar
-        alert("Validação realizada com sucesso!");
-        sessionStorage.setItem("usuarioLogado", "true");  // Simula um login
-        window.location.href = "index.html";
     });
 
     // Evento de clique no botão "Limpar"
@@ -77,6 +70,58 @@ document.addEventListener("DOMContentLoaded", function() {
         errorMessage.textContent = "";
         emailInput.focus();
     });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const isLoggedIn = sessionStorage.getItem("usuarioLogado") === "true";
+
+    const btnLogin = document.getElementById("btn-login");
+    const btnCadastrar = document.getElementById("btn-cadastrar");
+    const btnLogout = document.getElementById("btn-logout");
+    const btnSolicitacao = document.getElementById("solicitacao-servico");
+    const btnTrocarSenha = document.getElementById("trocar-senha");
+    const mensagemBemVindo = document.getElementById("bem-vindo");
+
+    if (isLoggedIn) {
+        // Oculta botões de login/cadastro
+        btnLogin.style.display = "none";
+        btnCadastrar.style.display = "none";
+
+        // Mostra botões restritos
+        btnLogout.style.display = "inline-block";
+        btnSolicitacao.style.display = "inline-block";
+        btnTrocarSenha.style.display = "inline-block";
+
+        // Exibe mensagem de boas-vindas
+        const nome = sessionStorage.getItem("nomeUsuario");
+        mensagemBemVindo.textContent = `Olá, ${nome}!`;
+    } else {
+        // Usuário não logado: mostra login/cadastro e esconde o resto
+        btnLogin.style.display = "inline-block";
+        btnCadastrar.style.display = "inline-block";
+        btnLogout.style.display = "none";
+        btnSolicitacao.style.display = "none";
+        btnTrocarSenha.style.display = "none";
+        mensagemBemVindo.textContent = "";
+    }
+
+    // Evento de logout
+    btnLogout.addEventListener("click", function () {
+        sessionStorage.clear();
+        window.location.reload();
+        window.location.href = "../index.html";
+    });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const nomeUsuario = sessionStorage.getItem("nomeUsuario");
+    if (nomeUsuario) {
+        const bemVindo = document.getElementById("bem-vindo");
+        if (bemVindo) {
+            bemVindo.textContent = `Olá, ${nomeUsuario}`;
+        }
+    }
 });
 
 //VALIDAÇÕES DE TROCA DE SENHA
@@ -234,7 +279,39 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         alert("Validação realizada com sucesso!");
-    });
+
+        // Criar ou carregar os usuários do localStorage
+        let usuarios = JSON.parse(localStorage.getItem("usuarios")) || {};
+
+        // Verificar se o e-mail já está cadastrado
+        if (usuarios[emailInput.value]) {
+            errorMessage.textContent = "Este e-mail já está cadastrado.";
+            return;
+        }
+
+        // Adiciona o novo usuário
+        usuarios[emailInput.value] = {
+        nome: nomeInput.value,
+        senha: senhaInput.value,
+        cpf: cpfInput.value,
+        dataNascimento: dataNascimentoInput.value,
+        telefone: telefoneInput.value,
+        estadoCivil: document.querySelector('input[name="estado-civil"]:checked').value,
+        escolaridade: document.getElementById("escolaridade").value
+};
+
+        // Salva os usuários no localStorage
+        localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+        sessionStorage.setItem("usuarioLogado", "true");
+        sessionStorage.setItem("nomeUsuario", nomeInput.value);
+        sessionStorage.setItem("emailUsuario", emailInput.value);
+
+
+        // Redireciona para a tela de login (ou home)
+        alert("Usuário cadastrado com sucesso!");
+        window.location.href = "../index.html";  // troque pelo nome da página desejada
+        });
 
     clearButton.addEventListener("click", function() {
         emailInput.value = "";
@@ -257,7 +334,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //INTERATIVITADE CARRINHO 
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const servicoSelect = document.getElementById("servico");
     const precoLabel = document.getElementById("preco");
     const prazoLabel = document.getElementById("prazo");
@@ -265,18 +342,16 @@ document.addEventListener("DOMContentLoaded", function() {
     const incluirButton = document.getElementById("btn-incluir");
     const tabela = document.getElementById("solicitacoes").querySelector("tbody");
 
-    document.addEventListener("DOMContentLoaded", function() {
-        const nomeLabel = document.getElementById("nome-usuario");
-        const emailLabel = document.getElementById("email-usuario");
-    
-        // Recupera os dados do usuário do sessionStorage
-        const nomeUsuario = sessionStorage.getItem("nomeUsuario") || "Usuário Desconhecido";
-        const emailUsuario = sessionStorage.getItem("emailUsuario") || "email@desconhecido.com";
-    
-        // Atualiza os labels com os dados armazenados
-        nomeLabel.textContent = nomeUsuario;
-        emailLabel.textContent = emailUsuario;
-    });
+    const nomeLabel = document.getElementById("nome-usuario");
+    const emailLabel = document.getElementById("email-usuario");
+
+    // Recupera os dados do usuário do sessionStorage
+    const nomeUsuario = sessionStorage.getItem("nomeUsuario") || "Usuário Desconhecido";
+    const emailUsuario = sessionStorage.getItem("emailUsuario") || "email@desconhecido.com";
+
+    // Atualiza os labels com os dados armazenados
+    nomeLabel.textContent = nomeUsuario;
+    emailLabel.textContent = emailUsuario;
 
     const servicos = {
         "suporte": { preco: "R$ 150,00", prazo: 1 },
@@ -289,8 +364,8 @@ document.addEventListener("DOMContentLoaded", function() {
         const servicoSelecionado = servicoSelect.value;
         const dados = servicos[servicoSelecionado];
 
-        precoLabel.textContent = dados.preco;
-        prazoLabel.textContent = `${dados.prazo} dias`;
+        precoLabel.value = dados.preco;
+        prazoLabel.textContent = `${dados.prazo} dia${dados.prazo > 1 ? "s" : ""}`;
 
         let dataAtual = new Date();
         dataAtual.setDate(dataAtual.getDate() + dados.prazo);
@@ -299,13 +374,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     servicoSelect.addEventListener("change", atualizarInformacoesServico);
+    atualizarInformacoesServico(); // Para preencher os valores iniciais
 
-    incluirButton.addEventListener("click", function() {
+    incluirButton.addEventListener("click", function () {
         const dataPedido = new Date().toLocaleDateString("pt-BR");
         const numSolicitacao = Math.floor(Math.random() * 9000) + 1000;
         const servico = servicoSelect.options[servicoSelect.selectedIndex].text;
-        const preco = precoLabel.textContent;
-        const prazo = prazoLabel.textContent;
+        const preco = precoLabel.value;
         const dataPrevista = dataPrevistaLabel.textContent;
         const status = "EM ELABORAÇÃO";
 
@@ -326,7 +401,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function atualizarEventosExcluir() {
         document.querySelectorAll(".btn-excluir").forEach(button => {
-            button.addEventListener("click", function() {
+            button.addEventListener("click", function () {
                 this.closest("tr").remove();
             });
         });
