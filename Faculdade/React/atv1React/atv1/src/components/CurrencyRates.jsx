@@ -8,7 +8,7 @@ const CurrencyRates = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // URL fictícia - substitua por uma URL real que retorne o JSON esperado
+        // URL fictícia
         const response = await fetch('https://api.example.com/currency-rates');
         if (!response.ok) {
           throw new Error('Falha ao carregar dados');
