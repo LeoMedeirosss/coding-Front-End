@@ -1,46 +1,81 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Blackjack Online</title>
-  <link rel="stylesheet" href="style.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackJack Online</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Blackjack (21) Online</h1>
+    <div class="container">
+        <div id="setup-screen" class="screen">
+            <h1>BlackJack Online</h1>
+            <div class="form-group">
+                <label for="player-count">Número de Jogadores (2-4):</label>
+                <input type="number" id="player-count" min="2" max="4" value="2">
+            </div>
+            <div class="form-group">
+                <label for="rounds">Número de Rodadas (mínimo 3):</label>
+                <input type="number" id="rounds" min="3" value="3">
+            </div>
+            <div class="form-group">
+                <label for="timeout">Tempo por jogada (segundos):</label>
+                <input type="number" id="timeout" min="5" value="30">
+            </div>
+            <div id="player-names"></div>
+            <button id="start-game" class="btn">Iniciar Jogo</button>
+        </div>
 
-    <form id="setupForm">
-      <label for="players">Jogadores (2 a 4):</label>
-      <input type="number" id="players" min="2" max="4" required>
+        <div id="game-screen" class="screen hidden">
+            <div class="header">
+                <h1>BlackJack Online</h1>
+                <div class="game-info">
+                    <span id="round-info"></span>
+                    <span id="turn-info"></span>
+                    <span id="timer"></span>
+                </div>
+            </div>
 
-      <div id="namesContainer"></div>
+            <div class="dealer-area">
+                <h2>Banca</h2>
+                <div class="hand" id="dealer-hand"></div>
+                <div class="score" id="dealer-score"></div>
+            </div>
 
-      <label for="timeout">Tempo por jogador (segundos):</label>
-      <input type="number" id="timeout" min="5" max="60" required>
+            <div class="players-container" id="players-container"></div>
 
-      <div id="namesContainer"></div>
+            <div class="controls">
+                <button id="hit-btn" class="btn">Pedir Carta</button>
+                <button id="stand-btn" class="btn">Parar</button>
+            </div>
 
-      <button type="submit">Iniciar Partida</button>
-    </form>
+            <div class="scoreboard">
+                <h2>Placar</h2>
+                <table id="score-table">
+                    <thead>
+                        <tr>
+                            <th>Jogador</th>
+                            <th>Pontos</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
 
-    <div id="gameArea" class="hidden">
-      <div id="scoreBoard"></div>
-      <div id="dealerArea" class="cardArea">
-        <h2>Banca</h2>
-        <div class="cards" id="dealerCards"></div>
-        <p id="dealerTotal"></p>
-      </div>
+        <div id="result-screen" class="screen hidden">
+            <h1>Resultado da Rodada</h1>
+            <div id="round-result"></div>
+            <button id="next-round-btn" class="btn">Próxima Rodada</button>
+        </div>
 
-      <div id="playersArea"></div>
-
-      <div id="controls">
-        <button id="hitBtn">Pedir Carta</button>
-        <button id="standBtn">Parar</button>
-      </div>
+        <div id="game-over-screen" class="screen hidden">
+            <h1>Fim do Jogo!</h1>
+            <div id="final-results"></div>
+            <button id="new-game-btn" class="btn">Novo Jogo</button>
+        </div>
     </div>
-  </div>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
