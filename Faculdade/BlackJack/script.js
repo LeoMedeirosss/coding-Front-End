@@ -565,3 +565,46 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dispara o evento change para criar os campos de nome inicialmente
     playerCountInput.dispatchEvent(new Event('change'));
 });
+
+let socket;
+
+document.getElementById('connect-btn').addEventListener('click', () => {
+    const serverIp = document.getElementById('server-ip').value;
+    const playerName = document.getElementById('player-name').value;
+    
+    socket = new WebSocket(`ws://${serverIp}:8080`);
+    
+    socket.onopen = () => {
+        socket.send(JSON.stringify({
+            type: 'join',
+            playerId: Date.now(), // ID único simples
+            name: playerName
+        }));
+        
+        document.getElementById('connection-screen').classList.add('hidden');
+        document.getElementById('setup-screen').classList.remove('hidden');
+    };
+    
+    socket.onmessage = (event) => {
+        const message = JSON.parse(event.data);
+        
+        if (message.type === 'game-state') {
+            gameState = message.data;
+            updateGameUI();
+        }
+    };
+    
+    socket.onerror = (error) => {
+        console.error('Erro na conexão:', error);
+        alert('Erro ao conectar ao servidor');
+    };
+});
+
+// Modificar as funções de ação para enviar ao servidor
+function hit() {
+    socket.send(JSON.stringify({ type: 'action', action: 'hit' }));
+}
+
+function stand() {
+    socket.send(JSON.stringify({ type: 'action', action: 'stand' }));
+}
