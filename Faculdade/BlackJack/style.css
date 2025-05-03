@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: #0a5c36;
+  background-color: #161616;
   color: white;
 }
 
@@ -17,7 +17,7 @@ body {
 }
 
 .screen {
-  background-color: #0a5c36;
+  background-color: #161616;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
@@ -29,7 +29,7 @@ body {
 
 h1, h2 {
   margin-bottom: 20px;
-  color: #ffd700;
+  color: #b41919;
 }
 
 .form-group {
@@ -51,23 +51,25 @@ input {
 }
 
 .btn {
-  background-color: #ffd700;
-  color: #0a5c36;
+  background-color: #500000;
+  color: #9f9f9f;
   border: none;
   padding: 10px 20px;
   margin: 10px 5px;
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s;
+  transition: 0.25s;
 }
 
 .btn:hover {
-  background-color: #ffc000;
+  background-color: #6c0000;
+  transform: scale(1.05);
+  font-weight: bold;
 }
 
 .player-area {
-  background-color: #1e7d4e;
+  background-color: #d71515;
   border-radius: 10px;
   padding: 15px;
   margin: 10px 0;
@@ -75,11 +77,11 @@ input {
 }
 
 .player-area.active {
-  box-shadow: 0 0 10px 5px #ffd700;
+  box-shadow: 0 0 10px 5px #212121;
 }
 
 .dealer-area {
-  background-color: #1e7d4e;
+  background-color: #df0f0f;
   border-radius: 10px;
   padding: 15px;
   margin-bottom: 20px;
@@ -168,11 +170,11 @@ table {
 th, td {
   padding: 8px;
   text-align: left;
-  border-bottom: 1px solid #0a5c36;
+  border-bottom: 1px solid #5c0a0a;
 }
 
 th {
-  background-color: #0a5c36;
+  background-color: #5c0a0a;
 }
 
 .players-container {
