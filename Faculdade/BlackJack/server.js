@@ -12,7 +12,6 @@ const gameState = {
     status: 'waiting' // waiting, playing, dealer-turn, round-end, game-over
 };
 
-// Funções do jogo (similar às que você já tem, mas adaptadas)
 // server.js
 
 function generateDeck() {
