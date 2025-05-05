@@ -6,7 +6,7 @@
 }
 
 .carrinho-container {
-    width: 600px;
+    width: 800px;
     margin: 30px auto;
     padding: 20px;
     background: #f4f4f4;
@@ -30,6 +30,7 @@ th, td {
     border: 1px solid #ccc;
     padding: 8px;
     text-align: center;
+    width: 100%;
 }
 
 th {
