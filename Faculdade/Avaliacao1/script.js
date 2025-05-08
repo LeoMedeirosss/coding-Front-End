@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Função para validar senha
     function validarSenha(senha) {
         const permitido = /[@#$%&*!?/\\|_\-+=.]/;  // Caracteres especiais permitidos
-        const proibido = /[¨{}\[\]´`~^:;<>,“‘]/;  // Caracteres especiais proibidos
+        const proibido = /[¨{}\[\]´`~^:;<>,""']/;  // Caracteres especiais proibidos
         const temNumero = /\d/;
         const temMaiuscula = /[A-Z]/;
 
@@ -191,8 +191,23 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
+        // Carregar usuários do localStorage
+        const usuarios = JSON.parse(localStorage.getItem("usuarios")) || {};
+
+        // Verificar se o e-mail existe
+        if (!usuarios[email]) {
+            errorMessage.textContent = "E-mail não encontrado.";
+            return;
+        }
+
+        // Atualizar a senha do usuário
+        usuarios[email].senha = novaSenha;
+
+        // Salvar no localStorage
+        localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
         // Se tudo estiver correto, mostrar mensagem e voltar para a página anterior
-        alert("Validação realizada com sucesso!");
+        alert("Senha alterada com sucesso!");
         window.history.back();  // Voltar para a página anterior
     });
 
@@ -231,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function validarSenha(senha) {
         const permitido = /[@#$%&*!?/\\|_\-+=.]/;  // Caracteres especiais permitidos
-        const proibido = /[¨{}\[\]´`~^:;<>,“‘]/;  // Caracteres especiais proibidos
+        const proibido = /[¨{}\[\]´`~^:;<>,""']/;  // Caracteres especiais proibidos
         const temNumero = /\d/;
         const temMaiuscula = /[A-Z]/;
     
@@ -336,11 +351,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 document.addEventListener("DOMContentLoaded", function () {
     const servicoSelect = document.getElementById("servico");
-    const precoLabel = document.getElementById("preco");
+    const precoInput = document.getElementById("preco");
     const prazoLabel = document.getElementById("prazo");
     const dataPrevistaLabel = document.getElementById("data-prevista");
     const incluirButton = document.getElementById("btn-incluir");
-    const tabela = document.getElementById("solicitacoes").querySelector("tbody");
+    const tabela = document.querySelector("table tbody");
 
     const nomeLabel = document.getElementById("nome-usuario");
     const emailLabel = document.getElementById("email-usuario");
@@ -364,7 +379,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const servicoSelecionado = servicoSelect.value;
         const dados = servicos[servicoSelecionado];
 
-        precoLabel.value = dados.preco;
+        precoInput.value = dados.preco;
         prazoLabel.textContent = `${dados.prazo} dia${dados.prazo > 1 ? "s" : ""}`;
 
         let dataAtual = new Date();
@@ -373,39 +388,78 @@ document.addEventListener("DOMContentLoaded", function () {
         dataPrevistaLabel.textContent = dataFormatada;
     }
 
+    function carregarSolicitacoes() {
+        const solicitacoes = JSON.parse(localStorage.getItem("solicitacoes")) || [];
+        tabela.innerHTML = "";
+
+        solicitacoes.forEach(solicitacao => {
+            const novaLinha = document.createElement("tr");
+            novaLinha.innerHTML = `
+                <td>${solicitacao.dataPedido}</td>
+                <td>${solicitacao.numero}</td>
+                <td>${solicitacao.servico}</td>
+                <td>${solicitacao.status}</td>
+                <td>${solicitacao.preco}</td>
+                <td>${solicitacao.dataPrevista}</td>
+                <td><button class="btn-excluir">Excluir</button></td>
+            `;
+            tabela.appendChild(novaLinha);
+        });
+        atualizarEventosExcluir();
+    }
+
     servicoSelect.addEventListener("change", atualizarInformacoesServico);
     atualizarInformacoesServico(); // Para preencher os valores iniciais
 
     incluirButton.addEventListener("click", function () {
         const dataPedido = new Date().toLocaleDateString("pt-BR");
-        const numSolicitacao = Math.floor(Math.random() * 9000) + 1000;
+        const numSolicitacao = (Math.floor(Math.random() * 9000) + 1000).toString();
         const servico = servicoSelect.options[servicoSelect.selectedIndex].text;
-        const preco = precoLabel.value;
+        const preco = precoInput.value;
         const dataPrevista = dataPrevistaLabel.textContent;
         const status = "EM ELABORAÇÃO";
 
-        const novaLinha = document.createElement("tr");
-        novaLinha.innerHTML = `
-            <td>${dataPedido}</td>
-            <td>${numSolicitacao}</td>
-            <td>${servico}</td>
-            <td>${status}</td>
-            <td>${preco}</td>
-            <td>${dataPrevista}</td>
-            <td><button class="btn-excluir">Excluir</button></td>
-        `;
+        // Carregar solicitações existentes
+        const solicitacoes = JSON.parse(localStorage.getItem("solicitacoes")) || [];
+        
+        // Adicionar nova solicitação
+        solicitacoes.push({
+            dataPedido,
+            numero: numSolicitacao,
+            servico,
+            status,
+            preco,
+            dataPrevista
+        });
 
-        tabela.appendChild(novaLinha);
-        atualizarEventosExcluir();
+        // Salvar no localStorage
+        localStorage.setItem("solicitacoes", JSON.stringify(solicitacoes));
+
+        // Atualizar a tabela
+        carregarSolicitacoes();
     });
 
     function atualizarEventosExcluir() {
         document.querySelectorAll(".btn-excluir").forEach(button => {
             button.addEventListener("click", function () {
-                this.closest("tr").remove();
+                const tr = this.closest("tr");
+                const numeroSolicitacao = tr.cells[1].textContent;
+                
+                // Carregar solicitações
+                let solicitacoes = JSON.parse(localStorage.getItem("solicitacoes")) || [];
+                
+                // Remover a solicitação - convertendo para string para garantir comparação correta
+                solicitacoes = solicitacoes.filter(s => s.numero.toString() !== numeroSolicitacao);
+                
+                // Salvar no localStorage
+                localStorage.setItem("solicitacoes", JSON.stringify(solicitacoes));
+                
+                // Atualizar a tabela
+                carregarSolicitacoes();
             });
         });
     }
 
-    atualizarEventosExcluir();
+    // Carregar solicitações ao iniciar
+    carregarSolicitacoes();
 });
