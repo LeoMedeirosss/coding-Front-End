@@ -1,93 +1,89 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BlackJack Online</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blackjack Online</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div id="setup-screen" class="screen">
-            <h1>BlackJack Online</h1>
-            <div class="form-group">
-                <label for="player-count">Número de Jogadores (2-4):</label>
-                <input type="number" id="player-count" min="2" max="4" value="2">
-            </div>
-            <div class="form-group">
-                <label for="rounds">Número de Rodadas (mínimo 3):</label>
-                <input type="number" id="rounds" min="3" value="3">
-            </div>
-            <div class="form-group">
-                <label for="timeout">Tempo por jogada (segundos):</label>
-                <input type="number" id="timeout" min="5" value="30">
-            </div>
-            <div id="player-names"></div>
-            <button id="start-game" class="btn">Iniciar Jogo</button>
-            <div id="connection-screen" class="screen">
-                <h1>Conectar ao Jogo</h1>
-                <div class="form-group">
-                    <label for="server-ip">IP do Servidor:</label>
-                    <input type="text" id="server-ip" placeholder="Ex: 192.168.1.100">
-                </div>
-                <div class="form-group">
-                    <label for="player-name">Seu Nome:</label>
-                    <input type="text" id="player-name" placeholder="Seu nome">
-                </div>
-                <button id="connect-btn" class="btn">Conectar</button>
-            </div>
-        </div>
-
-        <div id="game-screen" class="screen hidden">
-            <div class="header">
-                <h1>BlackJack Online</h1>
-                <div class="game-info">
-                    <span id="round-info"></span>
-                    <span id="turn-info"></span>
-                    <span id="timer"></span>
-                </div>
-            </div>
-
-            <div class="dealer-area">
-                <h2>Banca</h2>
-                <div class="hand" id="dealer-hand"></div>
-                <div class="score" id="dealer-score"></div>
-            </div>
-
-            <div class="players-container" id="players-container"></div>
-
-            <div class="controls">
-                <button id="hit-btn" class="btn">Pedir Carta</button>
-                <button id="stand-btn" class="btn">Parar</button>
-            </div>
-
-            <div class="scoreboard">
-                <h2>Placar</h2>
-                <table id="score-table">
-                    <thead>
-                        <tr>
-                            <th>Jogador</th>
-                            <th>Pontos</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="result-screen" class="screen hidden">
-            <h1>Resultado da Rodada</h1>
-            <div id="round-result"></div>
-            <button id="next-round-btn" class="btn">Próxima Rodada</button>
-        </div>
-
-        <div id="game-over-screen" class="screen hidden">
-            <h1>Fim do Jogo!</h1>
-            <div id="final-results"></div>
-            <button id="new-game-btn" class="btn">Novo Jogo</button>
-        </div>
+  <div id="game-container">
+    <h1>Blackjack</h1>
+    <div id="room-code-entry" style="display: block;">
+      <h2>Entrar no jogo</h2>
+      <label for="roomCodeInput">Senha da sala:</label>
+      <input type="text" id="roomCodeInput" maxlength="6" placeholder="XXXXXX">
+      <button id="joinRoom">Entrar na sala</button>
+      <p id="roomCodeError" style="color: red; display: none;"></p>
     </div>
-
-    <script src="script.js"></script>
+    <div id="room-code-display" style="display: none;">
+      <h2>Cod da sala: <span id="roomCode"></span></h2>
+    </div>
+    <div id="name-entry" style="display: none;">
+      <h2>Enter Your Name</h2>
+      <input type="text" id="playerName" placeholder="Your name">
+      <button id="submitName">Selecionar nome</button>
+    </div>
+    <div id="bet-entry" style="display: none;">
+      <h2>Aposte</h2>
+      <label for="betAmount">Quantidade apostada (R$, minimo 10):</label>
+      <input type="number" id="betAmount" min="10" placeholder="Enter bet (min R$10)">
+      <button id="submitBet">Enviar aposta</button>
+      <p id="betError" style="color: red; display: none;"></p>
+    </div>
+    <div id="settings" style="display: none;">
+      <h2>Configs do jogo</h2>
+      <label for="maxRounds">Rodadas (min 3):</label>
+      <input type="number" id="maxRounds" min="3" value="3">
+      <label for="moveTimeout">Timeout (seconds, min 5):</label>
+      <input type="number" id="moveTimeout" min="5" value="15">
+      <button id="submitSettings">Selecionar configuracaoes</button>
+      <button id="startGame" style="display: none;">Start Game</button>
+    </div>
+    <div id="status"></div>
+    <div id="scoreboard">
+      <h2>Placar de lideres (R$)</h2>
+      <div id="scores"></div>
+    </div>
+    <div id="dealer">
+      <h2>Banca</h2>
+      <div id="dealer-hand"></div>
+    </div>
+    <div id="players">
+      <div id="player1" style="display: none;">
+        <h2>Player 1</h2>
+        <div id="player1-hand"></div>
+        <div id="player1-actions" style="display: none;">
+          <button id="hit1">Hit</button>
+          <button id="stand1">Stand</button>
+        </div>
+      </div>
+      <div id="player2" style="display: none;">
+        <h2>Player 2</h2>
+        <div id="player2-hand"></div>
+        <div id="player2-actions" style="display: none;">
+          <button id="hit2">Hit</button>
+          <button id="stand2">Stand</button>
+        </div>
+      </div>
+      <div id="player3" style="display: none;">
+        <h2>Player 3</h2>
+        <div id="player3-hand"></div>
+        <div id="player3-actions" style="display: none;">
+          <button id="hit3">Hit</button>
+          <button id="stand3">Stand</button>
+        </div>
+      </div>
+      <div id="player4" style="display: none;">
+        <h2>Player 4</h2>
+        <div id="player4-hand"></div>
+        <div id="player4-actions" style="display: none;">
+          <button id="hit4">Hit</button>
+          <button id="stand4">Stand</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="client.js"></script>
 </body>
 </html>
