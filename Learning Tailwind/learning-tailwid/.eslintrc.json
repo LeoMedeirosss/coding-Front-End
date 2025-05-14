@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "prettier",
+    "plugin:@rocketseat/next",
+    "rocketseat/eslint-config/next"
+  ],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+} 

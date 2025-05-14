@@ -2,14 +2,17 @@
 module.exports = {
   content: [
     "./src/**/*.tsx", 
+    "./src/**/*.ts",
+    "./app/**/*.{ts,tsx}",
   ],
 
   theme: {
     extend: {   
-      colors: {
-        green: {
-          500: '#008100',
-        },
+      gridTemplateColumns: {
+        app: 'minmax(18rem, 20rem) 1fr',
+      },
+      maxWidth: {
+        app: '700px',
       },
     },
   },
