@@ -1,6 +1,6 @@
 // src/App.jsx
 import { GameProvider } from "./context/GameContext";
-import GameBoard from "./components/GameBoard";
+import { GameBoard } from "./components/GameBoard";
 
 function App() {
   return (

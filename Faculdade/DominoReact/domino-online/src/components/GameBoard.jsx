@@ -2,15 +2,7 @@ import { useEffect } from "react";
 import { useGame } from "../context/GameContext";
 import { DominoPiece } from "./DominoPiece";
 import { DominoBoard } from "./DominoBoard";
-import {
-  autoPlay,
-  getPlayableTiles,
-  getMoveType,
-  calculatePoints,
-  hasPlayable,
-  determineWinner,
-  calculateHandValue
-} from '../utils/setupGame';
+import { autoPlay } from '../utils/setupGame';
 
 export const GameBoard = () => {
   const { gameState, playerId, handleDropPiece } = useGame();

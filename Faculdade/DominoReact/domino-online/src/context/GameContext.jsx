@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { generateInitialState, shuffleDominoes } from "../utils/gameUtils";
+import { generateInitialGameState } from "../utils/setupGame";
+import { shuffle } from "../utils/shuffle"
 
 const GameContext = createContext();
 
 export const GameProvider = ({ children }) => {
-  const [gameState, setGameState] = useState(generateInitialState());
+  const [gameState, setGameState] = useState(generateInitialGameState());
   const [playerId, setPlayerId] = useState(null);
 
   useEffect(() => {
@@ -22,7 +23,7 @@ export const GameProvider = ({ children }) => {
 
     // Quando o quarto jogador entra, iniciar o jogo
     if (updatedPlayers.length === 4) {
-      const shuffled = shuffleDominoes();
+      const shuffled = shuffle();
       for (let i = 0; i < 4; i++) {
         updatedPlayers[i].hand = shuffled.slice(i * 6, (i + 1) * 6);
       }
