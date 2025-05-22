@@ -1,78 +1,107 @@
-import React, { createContext, useContext, useState, useEffect, useRef } from "react";
-import { initialGameState, getNextPlayer, getValidMoves } from "../logic/gameUtils";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { generateInitialState, shuffleDominoes } from "../utils/gameUtils";
 
 const GameContext = createContext();
 
-export const useGame = () => useContext(GameContext);
-
 export const GameProvider = ({ children }) => {
-  const [gameState, setGameState] = useState(initialGameState());
-  const timeoutRef = useRef(null);
+  const [gameState, setGameState] = useState(generateInitialState());
+  const [playerId, setPlayerId] = useState(null);
 
-  const advanceTurn = () => {
-    setGameState((prev) => ({
-      ...prev,
-      currentPlayer: getNextPlayer(prev),
-    }));
-  };
+  useEffect(() => {
+    // Em breve: carregar do servidor. Por ora, apenas inicialização local.
+  }, []);
 
-  const playPiece = (playerId, pieceId, direction) => {
-    const player = gameState.players[playerId];
-    const piece = player.hand.find(p => p.id === pieceId);
-    if (!piece) return;
+  const joinGame = (name) => {
+    if (gameState.players.length >= 4) return { success: false, message: "Sala cheia" };
+    if (gameState.players.some(p => p.name === name)) return { success: false, message: "Nome duplicado" };
 
-    // Simples simulação: remover peça da mão e adicionar ao tabuleiro
-    const newHand = player.hand.filter(p => p.id !== pieceId);
-    const newBoard = [...gameState.board, { ...piece, direction, playerId }];
+    const id = crypto.randomUUID();
+    const newPlayer = { id, name, hand: [] };
 
-    // Atualizar cabeças (left/right)
-    const newHeads = { ...gameState.boardHeads };
-    if (direction === "left") {
-      newHeads.left = piece.values[0] === newHeads.left ? piece.values[1] : piece.values[0];
+    const updatedPlayers = [...gameState.players, newPlayer];
+
+    // Quando o quarto jogador entra, iniciar o jogo
+    if (updatedPlayers.length === 4) {
+      const shuffled = shuffleDominoes();
+      for (let i = 0; i < 4; i++) {
+        updatedPlayers[i].hand = shuffled.slice(i * 6, (i + 1) * 6);
+      }
+      const dorme = shuffled.slice(24);
+
+      setGameState({
+        ...gameState,
+        players: updatedPlayers,
+        dorme,
+        board: [],
+        turn: 0,
+      });
     } else {
-      newHeads.right = piece.values[0] === newHeads.right ? piece.values[1] : piece.values[0];
+      setGameState({ ...gameState, players: updatedPlayers });
     }
 
-    const newPlayers = {
-      ...gameState.players,
-      [playerId]: { ...player, hand: newHand }
-    };
+    setPlayerId(id);
+    return { success: true };
+  };
 
-    clearTimeout(timeoutRef.current);
-    setGameState(prev => ({
+  const isPlayerTurn = () => {
+    const index = gameState.players.findIndex(p => p.id === playerId);
+    return gameState.turn === index;
+  };
+
+  const handleDropPiece = (piece, method = "auto") => {
+    if (!isPlayerTurn()) return;
+
+    const board = gameState.board;
+    const [a, b] = piece;
+    const head = board[0]?.[0];
+    const tail = board[board.length - 1]?.[1];
+
+    const fitsHead = head !== undefined && (a === head || b === head);
+    const fitsTail = tail !== undefined && (a === tail || b === tail);
+    const isFirstMove = board.length === 0;
+
+    if (!isFirstMove && !fitsHead && !fitsTail) return;
+
+    const newBoard = [...board];
+    if (isFirstMove) {
+      newBoard.push(piece);
+    } else if (fitsHead) {
+      newBoard.unshift(a === head ? piece : [b, a]);
+    } else if (fitsTail) {
+      newBoard.push(a === tail ? piece : [b, a]);
+    }
+
+    const updatedPlayers = gameState.players.map((p) => {
+      if (p.id !== playerId) return p;
+      return {
+        ...p,
+        hand: p.hand.filter(
+          (x) => !(x[0] === piece[0] && x[1] === piece[1])
+        ),
+      };
+    });
+
+    setGameState((prev) => ({
       ...prev,
-      players: newPlayers,
       board: newBoard,
-      boardHeads: newHeads,
-      currentPlayer: getNextPlayer(prev),
+      players: updatedPlayers,
+      turn: (prev.turn + 1) % 4,
     }));
   };
 
-  // Jogada automática se passar de 20s
-  useEffect(() => {
-    if (!gameState.currentPlayer) return;
-
-    const currentId = gameState.currentPlayer;
-    const currentHand = gameState.players[currentId]?.hand || [];
-
-    timeoutRef.current = setTimeout(() => {
-      const validMoves = getValidMoves(currentHand, gameState.boardHeads);
-      if (validMoves.length > 0) {
-        // Se houver uma jogada possível, escolher uma aleatória
-        const { piece, direction } = validMoves[Math.floor(Math.random() * validMoves.length)];
-        playPiece(currentId, piece.id, direction);
-      } else {
-        // Caso não tenha jogada possível, apenas passa a vez
-        advanceTurn();
-      }
-    }, 20000);
-
-    return () => clearTimeout(timeoutRef.current);
-  }, [gameState.currentPlayer]);
-
   return (
-    <GameContext.Provider value={{ gameState, setGameState, playPiece }}>
+    <GameContext.Provider
+      value={{
+        gameState,
+        setGameState,
+        playerId,
+        joinGame,
+        handleDropPiece,
+      }}
+    >
       {children}
     </GameContext.Provider>
   );
 };
+
+export const useGame = () => useContext(GameContext);

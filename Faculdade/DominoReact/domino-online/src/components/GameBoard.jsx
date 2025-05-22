@@ -1,62 +1,72 @@
+import { useEffect } from "react";
 import { useGame } from "../context/GameContext";
-import { Scoreboard } from "./Scoreboard";
+import { DominoPiece } from "./DominoPiece";
+import { DominoBoard } from "./DominoBoard";
+import {
+  autoPlay,
+  getPlayableTiles,
+  getMoveType,
+  calculatePoints,
+  hasPlayable,
+  determineWinner,
+  calculateHandValue
+} from '../utils/setupGame';
 
-export default function GameBoard() {
-  const { gameState, playPiece } = useGame();
-  const board = gameState.board || [];
+export const GameBoard = () => {
+  const { gameState, playerId, handleDropPiece } = useGame();
 
-  const handleDrop = (e, side) => {
-    e.preventDefault();
-    const pieceId = e.dataTransfer.getData("pieceId");
-    // Aqui está fixo para player1, depois será dinâmico
-    playPiece("player1", pieceId, side);
-  };
+  const currentPlayer = gameState.players.find(p => p.id === playerId);
+  const isPlayerTurn = gameState.turn === gameState.players.findIndex(p => p.id === playerId);
 
-  const allowDrop = (e) => {
-    e.preventDefault();
-  };
+  useEffect(() => {
+  if (!isPlayerTurn || !playerHand || playerHand.length === 0) return;
+
+  const timeoutId = setTimeout(() => {
+    const board = gameState.board;
+    const left = board.length ? board[0].values[0] : null;
+    const right = board.length ? board[board.length - 1].values[1] : null;
+
+    const chosen = autoPlay(playerHand, left, right);
+
+    if (chosen) {
+      handleDropPiece(chosen, "auto");
+    } else {
+      // Jogador passa
+      handleDropPiece(null, "pass");
+    }
+  }, 20000); // 20 segundos
+
+  return () => clearTimeout(timeoutId);
+  }, [gameState.turn]);
+
+  if (!currentPlayer) {
+    return <div className="text-white">Aguardando entrada na sala...</div>;
+  }
+
+  const playerHand = currentPlayer.hand;
 
   return (
-    
-    <div className="flex flex-col items-center justify-center mt-4">
-      <Scoreboard />
-      <h2 className="text-xl font-bold text-white mb-2">Tabuleiro</h2>
-      <div className="flex items-center justify-center">
-        {/* Dropzone esquerda */}
-        <div
-          onDragOver={allowDrop}
-          onDrop={(e) => handleDrop(e, "left")}
-          className="w-16 h-32 bg-yellow-300 rounded-l-md flex items-center justify-center text-black font-bold cursor-pointer"
-        >
-          ←
-        </div>
+    <div className="p-4 text-white">
+      <h2 className="text-2xl font-bold mb-2">Você é: {currentPlayer.name}</h2>
+      <p className="mb-4">
+        {isPlayerTurn ? "🎯 Sua vez de jogar!" : "⏳ Aguardando outros jogadores..."}
+      </p>
 
-        {/* Área central com peças */}
-        <div className="bg-green-700 h-32 min-w-[300px] rounded flex justify-center items-center text-lg text-white mx-2 px-2 overflow-x-auto">
-          {board.length === 0 ? (
-            <span className="text-white font-mono">Tabuleiro vazio</span>
-          ) : (
-            board.map((p, i) => (
-              <div
-                key={i}
-                className="w-10 h-14 bg-white text-black mx-1 text-center border rounded shadow"
-              >
-                <div>{p.values[0]}</div>
-                <div>{p.values[1]}</div>
-              </div>
-            ))
-          )}
-        </div>
+      <DominoBoard />
 
-        {/* Dropzone direita */}
-        <div
-          onDragOver={allowDrop}
-          onDrop={(e) => handleDrop(e, "right")}
-          className="w-16 h-32 bg-yellow-300 rounded-r-md flex items-center justify-center text-black font-bold cursor-pointer"
-        >
-          →
+      <div className="mt-6">
+        <h3 className="text-xl mb-2">Suas peças:</h3>
+        <div className="flex flex-wrap gap-2">
+          {playerHand.map((piece, index) => (
+            <DominoPiece
+              key={index}
+              piece={piece}
+              draggable={isPlayerTurn}
+              onDoubleClick={() => handleDropPiece(piece, "auto")}
+            />
+          ))}
         </div>
       </div>
     </div>
   );
-}
+};
