@@ -1,5 +1,5 @@
-import React from "react";
 import { useGame } from "../context/GameContext";
+import { Scoreboard } from "./Scoreboard";
 
 export default function GameBoard() {
   const { gameState, playPiece } = useGame();
@@ -17,7 +17,9 @@ export default function GameBoard() {
   };
 
   return (
+    
     <div className="flex flex-col items-center justify-center mt-4">
+      <Scoreboard />
       <h2 className="text-xl font-bold text-white mb-2">Tabuleiro</h2>
       <div className="flex items-center justify-center">
         {/* Dropzone esquerda */}

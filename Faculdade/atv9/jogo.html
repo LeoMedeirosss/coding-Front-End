@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Sorte</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .figuras-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .figura {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            border: 2px solid #333;
+            transition: all 0.3s;
+        }
+        
+        .buttons {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .info {
+            margin: 20px 0;
+            font-size: 18px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        .verde {
+            background-color: #4CAF50 !important;
+        }
+        
+        .vermelho {
+            background-color: #F44336 !important;
+        }
+        
+        .amarelo {
+            background-color: #FFEB3B !important;
+        }
+    </style>
+</head>
+<body>
+    <h1>Jogo da Sorte</h1>
+    
+    <div class="figuras-container" id="figuras">
+        <!-- Figuras serão geradas por JavaScript -->
+    </div>
+    
+    <div class="buttons">
+        <button id="jogar">JOGAR</button>
+        <button id="zerar">ZERAR TUDO</button>
+    </div>
+    
+    <div class="info">
+        <div>TIMER: <span id="timer">00:30</span></div>
+        <div>RESULTADO: <span id="resultado"></span></div>
+    </div>
+    
+    <table id="historico">
+        <tr>
+            <th>RESULTADO</th>
+        </tr>
+    </table>
+
+    <script>
+        // Elementos do DOM
+        const figurasContainer = document.getElementById('figuras');
+        const jogarBtn = document.getElementById('jogar');
+        const zerarBtn = document.getElementById('zerar');
+        const timerDisplay = document.getElementById('timer');
+        const resultadoDisplay = document.getElementById('resultado');
+        const historicoTable = document.getElementById('historico');
+        
+        // Variáveis do jogo
+        let timer;
+        let timeLeft = 30;
+        let figuraPremiada;
+        let jogoEmAndamento = false;
+        let figuras = [];
+        
+        // URLs de imagens de exemplo (substitua por suas próprias imagens)
+        const imagens = [
+            'https://via.placeholder.com/150?text=Figura+1',
+            'https://via.placeholder.com/150?text=Figura+2',
+            'https://via.placeholder.com/150?text=Figura+3',
+            'https://via.placeholder.com/150?text=Figura+4',
+            'https://via.placeholder.com/150?text=Figura+5',
+            'https://via.placeholder.com/150?text=Figura+6',
+            'https://via.placeholder.com/150?text=Figura+7',
+            'https://via.placeholder.com/150?text=Figura+8',
+            'https://via.placeholder.com/150?text=Figura+9'
+        ];
+        
+        // Inicializar o jogo
+        function init() {
+            criarFiguras();
+            resetarJogo();
+            
+            // Event listeners
+            jogarBtn.addEventListener('click', iniciarJogo);
+            zerarBtn.addEventListener('click', resetarTudo);
+        }
+        
+        // Criar as figuras no tabuleiro
+        function criarFiguras() {
+            figurasContainer.innerHTML = '';
+            figuras = [];
+            
+            for (let i = 0; i < 9; i++) {
+                const figura = document.createElement('div');
+                figura.className = 'figura';
+                figura.style.backgroundImage = `url(${imagens[i]})`;
+                figura.dataset.index = i;
+                
+                figura.addEventListener('click', () => {
+                    if (jogoEmAndamento) {
+                        verificarEscolha(i);
+                    }
+                });
+                
+                figurasContainer.appendChild(figura);
+                figuras.push(figura);
+            }
+        }
+        
+        // Iniciar um novo jogo
+        function iniciarJogo() {
+            if (jogoEmAndamento) return;
+            
+            resetarJogo();
+            jogoEmAndamento = true;
+            resultadoDisplay.textContent = 'EM JOGO';
+            
+            // Escolher figura premiada aleatoriamente
+            figuraPremiada = Math.floor(Math.random() * 9);
+            
+            // Iniciar contagem regressiva
+            timeLeft = 30;
+            atualizarTimer();
+            timer = setInterval(() => {
+                timeLeft--;
+                atualizarTimer();
+                
+                if (timeLeft <= 0) {
+                    tempoEsgotado();
+                }
+            }, 1000);
+        }
+        
+        // Atualizar display do timer
+        function atualizarTimer() {
+            const minutos = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+            const segundos = (timeLeft % 60).toString().padStart(2, '0');
+            timerDisplay.textContent = `${minutos}:${segundos}`;
+        }
+        
+        // Verificar escolha do jogador
+        function verificarEscolha(index) {
+            if (!jogoEmAndamento) return;
+            
+            clearInterval(timer);
+            jogoEmAndamento = false;
+            
+            if (index === figuraPremiada) {
+                // Acertou
+                figuras[index].classList.add('verde');
+                resultadoDisplay.textContent = '1.000.000';
+                adicionarAoHistorico('GANHOU');
+                
+                // Pintar outras de vermelho
+                figuras.forEach((figura, i) => {
+                    if (i !== index) {
+                        figura.classList.add('vermelho');
+                    }
+                });
+            } else {
+                // Errou
+                figuras[index].classList.add('vermelho');
+                resultadoDisplay.textContent = '0.000.000';
+                adicionarAoHistorico('PERDEU');
+                
+                // Pintar outras de amarelo
+                figuras.forEach((figura, i) => {
+                    if (i !== index) {
+                        figura.classList.add('amarelo');
+                    }
+                });
+            }
+        }
+        
+        // Tempo esgotado
+        function tempoEsgotado() {
+            clearInterval(timer);
+            jogoEmAndamento = false;
+            
+            // Pintar todas de vermelho
+            figuras.forEach(figura => {
+                figura.classList.add('vermelho');
+            });
+            
+            resultadoDisplay.textContent = 'TIMEOUT';
+            adicionarAoHistorico('TIMEOUT');
+        }
+        
+        // Adicionar resultado ao histórico
+        function adicionarAoHistorico(resultado) {
+            const row = historicoTable.insertRow();
+            const cell = row.insertCell();
+            cell.textContent = resultado;
+        }
+        
+        // Resetar jogo (mantém histórico)
+        function resetarJogo() {
+            clearInterval(timer);
+            jogoEmAndamento = false;
+            timeLeft = 30;
+            timerDisplay.textContent = '00:30';
+            resultadoDisplay.textContent = '';
+            
+            // Resetar figuras
+            figuras.forEach(figura => {
+                figura.className = 'figura';
+                figura.style.backgroundImage = `url(${imagens[figura.dataset.index]})`;
+            });
+        }
+        
+        // Resetar tudo (incluindo histórico)
+        function resetarTudo() {
+            resetarJogo();
+            
+            // Limpar histórico (mantendo cabeçalho)
+            while (historicoTable.rows.length > 1) {
+                historicoTable.deleteRow(1);
+            }
+        }
+        
+        // Inicializar quando a página carregar
+        window.onload = init;
+    </script>
+</body>
+</html>
