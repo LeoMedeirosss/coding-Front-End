@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação de Textos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 10px;
+        }
+        .result-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            min-height: 50px;
+            background-color: #f9f9f9;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <h1>Avaliação de Textos</h1>
+    
+    <div class="form-group">
+        <label for="texto">Digite ou cole seu texto:</label>
+        <textarea id="texto"></textarea>
+    </div>
+    
+    <div class="form-group">
+        <label for="palavra">Palavra a ser encontrada:</label>
+        <input type="text" id="palavra" placeholder="Digite a palavra para buscar">
+    </div>
+    
+    <div class="form-group">
+        <label>Ocorrências da palavra:</label>
+        <div id="ocorrencias" class="result-box">0</div>
+    </div>
+    
+    <div class="form-group">
+        <label>Espelho do texto:</label>
+        <div id="espelho" class="result-box"></div>
+    </div>
+    
+    <div class="form-group">
+        <label>Data/hora da última atualização:</label>
+        <div id="dataHora" class="result-box"></div>
+    </div>
+    
+    <button id="inverter">Inverter Texto</button>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const textoInput = document.getElementById('texto');
+            const palavraInput = document.getElementById('palavra');
+            const ocorrenciasLabel = document.getElementById('ocorrencias');
+            const espelhoLabel = document.getElementById('espelho');
+            const dataHoraLabel = document.getElementById('dataHora');
+            const inverterBtn = document.getElementById('inverter');
+            
+            // Atualiza o espelho do texto e a data/hora quando o texto é modificado
+            textoInput.addEventListener('input', function() {
+                atualizarEspelho();
+            });
+            
+            // Conta as ocorrências quando o campo de palavra perde o foco
+            palavraInput.addEventListener('blur', function() {
+                contarOcorrencias();
+            });
+            
+            // Inverte o texto quando o botão é clicado
+            inverterBtn.addEventListener('click', function() {
+                inverterTexto();
+            });
+            
+            function atualizarEspelho() {
+                const texto = textoInput.value;
+                espelhoLabel.textContent = texto;
+                atualizarDataHora();
+            }
+            
+            function contarOcorrencias() {
+                const palavra = palavraInput.value.trim();
+                if (!palavra) {
+                    ocorrenciasLabel.textContent = '0';
+                    return;
+                }
+                
+                const texto = textoInput.value;
+                const regex = new RegExp('\\b' + palavra + '\\b', 'gi');
+                const matches = texto.match(regex);
+                const count = matches ? matches.length : 0;
+                
+                ocorrenciasLabel.textContent = count;
+            }
+            
+            function atualizarDataHora() {
+                const agora = new Date();
+                const dia = String(agora.getDate()).padStart(2, '0');
+                const mes = String(agora.getMonth() + 1).padStart(2, '0');
+                const ano = agora.getFullYear();
+                const horas = String(agora.getHours()).padStart(2, '0');
+                const minutos = String(agora.getMinutes()).padStart(2, '0');
+                const segundos = String(agora.getSeconds()).padStart(2, '0');
+                
+                dataHoraLabel.textContent = `${dia}/${mes}/${ano} ${horas}:${minutos}:${segundos}`;
+            }
+            
+            function inverterTexto() {
+                const texto = textoInput.value;
+                espelhoLabel.textContent = texto.split('').reverse().join('');
+                atualizarDataHora();
+            }
+        });
+    </script>
+</body>
+</html>
