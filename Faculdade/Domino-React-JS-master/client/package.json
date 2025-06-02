@@ -1,14 +1,14 @@
 {
-  "name": "domino-online",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "cra-template-pwa": "2.0.0",
-    "domino-online": "file:",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-scripts": "5.0.1",
-    "web-vitals": "^5.0.1"
+    "socket.io-client": "^4.8.1",
+    "styled-components": "^6.1.18"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -33,10 +33,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.7",
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.3"
   }
 }
