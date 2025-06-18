@@ -2,7 +2,7 @@ import { Home, BarChart, CheckSquare, Flag, Search, SquareStack, Users } from "l
 import { NavItem } from "./NavItem";
 import { UsedSpaceWidget } from "./UsedSpaceWidget";
 import { Profile } from "./profile";
-import { InputControl, InputPrefix, InputRoot } from "../Input";
+import * as Input from "../Input";
 
 export function Sidebar() {
     return(
@@ -10,12 +10,12 @@ export function Sidebar() {
             <strong className="flex items-center text-xl font-semibold text-zinc-900">
                 <span>Untitled UI</span>
             </strong>
-            <InputRoot>
-                <InputPrefix>
+            <Input.Root>
+                <Input.Prefix>
                     <Search className="h-5 w-5 text-zinc-500" />
-                </InputPrefix>
-                <InputControl placeholder="Search"/>
-            </InputRoot>
+                </Input.Prefix>
+                <Input.Control placeholder="Search"/>
+            </Input.Root>
 
             <nav className="space-y-0.5 ">
                 <NavItem title="Home" icon={Home} />
