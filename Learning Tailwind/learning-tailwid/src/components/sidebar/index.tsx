@@ -2,6 +2,7 @@ import { Home, BarChart, CheckSquare, Flag, Search, SquareStack, Users } from "l
 import { NavItem } from "./NavItem";
 import { UsedSpaceWidget } from "./UsedSpaceWidget";
 import { Profile } from "./profile";
+import { InputControl, InputPrefix, InputRoot } from "../Input";
 
 export function Sidebar() {
     return(
@@ -9,25 +10,27 @@ export function Sidebar() {
             <strong className="flex items-center text-xl font-semibold text-zinc-900">
                 <span>Untitled UI</span>
             </strong>
-            <div className="flex w-full items-center gap-2 rounded-large border border-zinc-300 px-3 py-2 shadow-sm">
-                <Search className="h-5 w-5 text-zinc-500"/>
-                <input type="text" placeholder="Search" className="flex-1 bg-transparent p-0 text-zinc-900 placeholder-zinc-600"/>
-            </div>
+            <InputRoot>
+                <InputPrefix>
+                    <Search className="h-5 w-5 text-zinc-500" />
+                </InputPrefix>
+                <InputControl placeholder="Search"/>
+            </InputRoot>
 
-        <nav className="space-y-0.5 ">
-            <NavItem title="Home" icon={Home} />
-            <NavItem title="Dashboard" icon={BarChart} />
-            <NavItem title="Projects" icon={SquareStack} />
-            <NavItem title="Tasks" icon={CheckSquare} />
-            <NavItem title="Reporting" icon={Flag} />
-            <NavItem title="Users" icon={Users} />
-        </nav>
+            <nav className="space-y-0.5 ">
+                <NavItem title="Home" icon={Home} />
+                <NavItem title="Dashboard" icon={BarChart} />
+                <NavItem title="Projects" icon={SquareStack} />
+                <NavItem title="Tasks" icon={CheckSquare} />
+                <NavItem title="Reporting" icon={Flag} />
+                <NavItem title="Users" icon={Users} />
+            </nav>
 
-        <UsedSpaceWidget/>
+            <UsedSpaceWidget/>
 
-        <div className="h-px bg-zinc-200"/>
+            <div className="h-px bg-zinc-200"/>
 
-        <Profile />
+            <Profile />
         </aside>
     )
 }
