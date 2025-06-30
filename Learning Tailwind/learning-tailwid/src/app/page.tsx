@@ -1,6 +1,7 @@
 import { SettingsTabs } from "@/components/SettingsTabs";
 import * as Input from "@/components/Input";
-import { Mail, UploadCloud, User } from "lucide-react";
+import { Mail } from "lucide-react";
+import * as FileInput from "@/components/Form/FileInput"
 
 export default function Home() {
   return (
@@ -84,29 +85,11 @@ export default function Home() {
                 This will be displayed on your profile
               </span>
             </label>
-            <div className="flex flex-row items-start gap-5">
-              <div className="bg-violet-50 h-16 w-16 rounded-full flex items-center justify-center">
-                <User className="w-8 h-8 text-violet-500"/>
-              </div>
-
-              <label 
-                htmlFor="yourphoto" 
-                className=" group flex-1 cursor-pointer flex-col flex items-center gap-3 rounded-lg border border-zinc-300 px-6 py-4 text-zinc-500 shadow-sm hover:border-violet-200 hover:bg-violet-50 hover:text-violet-500" 
-              >
-                <div className="group-hover:border-violet-50 group-hover:bg-violet-100 rounded-full border-6 border-zinc-50 bg-zinc-100 p-2">
-                  <UploadCloud  className="h-5 w-5 text-zinc-600 group-hover:text-violet-600" />
-                </div>
-              
-                <div className="flex flex-col items-center gap-1">
-                  <span className="text-sm">
-                    <span className="font-semibold text-violet-700">Click to upload</span> or drag and drop
-                  </span>
-                  <span className="text-xs">SVG, PNG, JPG or GIF</span>
-                </div>
-              </label>
-
-              <input type="file" className="sr-only" id="yourphoto" />
-            </div>
+              <FileInput.Root className="flex flex-row items-start gap-5">
+                <FileInput.ImagePreview/>
+                <FileInput.Trigger/>
+                <FileInput.Control/>
+              </FileInput.Root>
           </div>
           </div>
 
