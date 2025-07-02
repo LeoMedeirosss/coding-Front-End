@@ -17,10 +17,7 @@ export function Trigger() {
             <div className="flex flex-col items-center gap-1">
                 <span className="text-sm">
                     <span className="font-semibold text-violet-700">
-                        Click to upload
-                    </span> 
-                    or drag and drop
-                </span>
+                        Click to upload</span> or drag and drop </span>
                 <span className="text-xs">SVG, PNG, JPG or GIF</span>
             </div>
         </label>

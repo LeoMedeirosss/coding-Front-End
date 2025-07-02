@@ -161,7 +161,11 @@ export default function Home() {
                 Share a few snippets of your work
               </span>
             </label>
-            <div></div>
+            <FileInput.Root>
+              <FileInput.Trigger/>
+              <FileInput.FileList/>
+              <FileInput.Control multiple />
+            </FileInput.Root>
           </div>
           </div>
 
