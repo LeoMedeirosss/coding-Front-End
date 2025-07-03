@@ -156,7 +156,7 @@ export default function Home() {
                 Write your introduction.
               </span>
             </label>
-            <div></div>
+            <div>BIO INPUT 1.0 (Terminar de fazer)</div>
           </div>
           </div>
 
