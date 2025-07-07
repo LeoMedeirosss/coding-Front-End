@@ -1,10 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.tsx", 
-    "./src/**/*.ts",
-    "./app/**/*.{ts,tsx}",
-  ],
+  content: ['./src/**/*.tsx'],
 
   theme: {
     extend: {   
@@ -18,7 +14,23 @@ module.exports = {
 
       borderWidth: {
         6:"6px",
-      }
+      },
+
+      keyframes: {
+        slideDownAndFade: {
+          from: {opacity: 0},
+          to: {opacity: 1},
+        },
+        slideUpAndFade: {
+          from: {opacity: 1},
+          to: {opacity: 0},
+        },
+      },
+
+      animation: {
+        slideDownAndFade: "slideDownAndFade 1s linear",
+        slideUpAndFade: "slideUpAndFade 1s linear"
+      },
     },
   },
   plugins: [],

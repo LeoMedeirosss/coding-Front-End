@@ -1,4 +1,5 @@
 import { SettingsTabs } from "@/components/SettingsTabs";
+import './globals.css'
 import * as Input from "@/components/Input";
 import { Bold, Italic, Link, List, ListOrdered, Mail } from "lucide-react";
 import * as FileInput from "@/components/Form/FileInput"
