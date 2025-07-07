@@ -186,7 +186,7 @@ export default function Home() {
                 </div>
               </div>
               <textarea 
-                className="min-h-[128px] resize-y w-full rounded-lg border border-zinc-300 py-2 px-3 shadow-sm"
+                className="min-h-[128px] resize-y w-full rounded-lg border border-zinc-300 py-2 px-3 shadow-sm outline-none focus:border-violet-300 focus:ring-4 focus:ring-violet-100"
                 name="bio" 
                 id="bio" defaultValue="Im a Product Designer based in Melbourne, Australia. I specialize in UX/UI desing."
               >
