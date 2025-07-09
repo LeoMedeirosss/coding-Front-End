@@ -5,6 +5,7 @@ import { Bold, Italic, Link, List, ListOrdered, Mail } from "lucide-react";
 import * as FileInput from "@/components/Form/FileInput"
 import { Select } from "@/components/Form/FileInput/Select/index";
 import { SelectItem } from "@/components/Form/FileInput/Select/SelectItem";
+import { Button } from "@/components/Button";
 
 export default function Home() {
   return (
@@ -22,19 +23,19 @@ export default function Home() {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <button 
+            <Button
               type="button" 
-              className="rounded-lg px-4 py-2 text-sm font-semibold shadow-sm border cursor-pointer border-zinc-300 text-zinc-700 hover:bg-zinc-50"
+              variant="outline"
             >
-              cancel
-            </button>
-            <button 
+              Cancel
+            </Button>
+            <Button 
               type="button" 
               form="settings" 
-              className="rounded-lg px-4 py-2 text-sm font-semibold shadow-sm cursor-pointer bg-violet-600 text-white hover:bg-violet-700"
+              variant="primary"
             >
-              submit
-            </button>
+              Submit
+            </Button>
           </div>
         </div>
         <form id="settings" className="mt-6 flex w-full flex-col gap-5 divide-y divide-zinc-200">
@@ -218,18 +219,19 @@ export default function Home() {
 
 
           <div className="flex items-center justify-end gap-2 pt-4">
-            <button 
+            <Button
               type="button" 
-              className="rounded-lg px-4 py-2 text-sm font-semibold shadow-sm border cursor-pointer border-zinc-300 text-zinc-700 hover:bg-zinc-50"
+              variant="outline"
             >
-              cancel
-            </button>
-            <button 
+              Cancel
+            </Button>
+            <Button 
               type="button" 
-              className="rounded-lg px-4 py-2 text-sm font-semibold shadow-sm cursor-pointer bg-violet-600 text-white hover:bg-violet-700"
+              form="settings" 
+              variant="primary"
             >
-              submit
-            </button>
+              Save
+            </Button>
           </div>
 
         </form>
