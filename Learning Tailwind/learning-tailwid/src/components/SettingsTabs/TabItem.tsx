@@ -13,7 +13,7 @@ export function TabItem({value, title, isSelected = false}: TabItemProps) {
     return(
             <Tabs.Trigger 
                 value= {value}
-                className="relative px-1 pb-2.5 text-sm font-medium text-zinc-500 hover:text-violet-600 data-[state=active]:text-violet-700"
+                className="whitespace-nowrap relative px-1 pb-2.5 text-sm font-medium text-zinc-500 hover:text-violet-600 data-[state=active]:text-violet-700"
             >
                 <span className="">{title}</span>
 
