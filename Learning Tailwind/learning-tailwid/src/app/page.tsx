@@ -10,15 +10,15 @@ import { Button } from "@/components/Button";
 export default function Home() {
   return (
     <>
-      <h1 className="text-3xl font-medium text-zinc-900 pt-3">Settings</h1>
+      <h1 className="text-3xl font-medium text-zinc-900 pt-3 dark:text-zinc-100">Settings</h1>
 
       <SettingsTabs />
 
       <div className="mt-6 flex flex-col">
-        <div className="flex flex-col lg:items-center gap-4 lg:flex-row justify-between border-b border-zinc-200 pb-5">
+        <div className="flex flex-col lg:items-center gap-4 lg:flex-row justify-between border-b border-zinc-200 dark:border-zinc-700 pb-5">
           <div className="space-y-1">
-            <h2 className="text-lg font-medium text-zinc-900">Personal info</h2>
-            <span className="text-sm text-zinc-500">
+            <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100">Personal info</h2>
+            <span className="text-sm text-zinc-500 dark:text-zinc-400">
               Update yout pohoto and personal details here.
             </span>
           </div>
@@ -38,12 +38,12 @@ export default function Home() {
             </Button>
           </div>
         </div>
-        <form id="settings" className="mt-6 flex w-full flex-col gap-5 divide-y divide-zinc-200">
+        <form id="settings" className="mt-6 flex w-full flex-col gap-5 divide-y divide-zinc-200 dark:divide-zinc-700">
           <div className="grid flex-col gap-5 pb-4">
             <div className="flex flex-col lg:grid gap-3 lg:grid-cols-3">
               <label 
                 htmlFor="FirstName" 
-                className="text-sm font-medium text-zinc-700"
+                className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
               >
                 Name
               </label>
@@ -70,7 +70,7 @@ export default function Home() {
             <div className="flex flex-col lg:grid gap-3 lg:grid-cols-3">
               <label 
                 htmlFor="email" 
-                className="text-sm font-medium text-zinc-700"
+                className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
               >
                 Email
               </label>
@@ -87,7 +87,7 @@ export default function Home() {
           <div className="flex flex-col lg:grid gap-3 lg:grid-cols-3">
             <label 
               htmlFor="yourphoto" 
-              className="text-sm font-medium text-zinc-700"
+              className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
             >
               Your Photo
               <span 
@@ -108,7 +108,7 @@ export default function Home() {
           <div className="flex flex-col lg:grid gap-3 lg:grid-cols-3">
             <label 
               htmlFor="role" 
-              className="text-sm font-medium text-zinc-700"
+              className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
             >
               Role
             </label>
@@ -122,7 +122,7 @@ export default function Home() {
           <div className="flex flex-col lg:grid gap-3 lg:grid-cols-3">
             <label 
               htmlFor="country" 
-              className="text-sm font-medium text-zinc-700"
+              className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
             >
               Country
             </label>
@@ -141,7 +141,7 @@ export default function Home() {
           <div className="flex flex-col lg:grid gap-3 lg:grid-cols-3">
             <label 
               htmlFor="timezone" 
-              className="text-sm font-medium text-zinc-700"
+              className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
             >
               Timezone
             </label>
@@ -156,11 +156,11 @@ export default function Home() {
           <div className="flex flex-col lg:grid gap-3 lg:grid-cols-3">
             <label 
               htmlFor="bio" 
-              className="text-sm font-medium text-zinc-700"
+              className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
             >
               Bio
               <span 
-                className="block mt-1 text-sm font-normal text-zinc-500"
+                className="block mt-1 text-sm font-normal text-zinc-500 dark:text-zinc-400"
               >
                 Write your introduction.
               </span>
@@ -209,7 +209,7 @@ export default function Home() {
                 </div>
               </div>
               <textarea 
-                className="min-h-[128px] resize-y w-full rounded-lg border border-zinc-300 py-2 px-3 shadow-sm outline-none focus:border-violet-300 focus:ring-4 focus:ring-violet-100"
+                className="min-h-[128px] resize-y w-full rounded-lg border border-zinc-300 py-2 px-3 shadow-sm outline-none focus:border-violet-300 focus:ring-4 focus:ring-violet-100 dark:border-zinc-700 dark:bg-zinc-800 dark:focus:border-violet-500 dark:focus:ring-violet-500/20 dark:text-zinc-300 dark:placeholder-zinc-400"
                 name="bio" 
                 id="bio" defaultValue="Im a Product Designer based in Melbourne, Australia. I specialize in UX/UI desing."
               >
