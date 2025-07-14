@@ -7,8 +7,6 @@ import { Select } from "@/components/Form/FileInput/Select/index";
 import { SelectItem } from "@/components/Form/FileInput/Select/SelectItem";
 import { Button } from "@/components/Button";
 
-//FAZER TEMA DARK - ULTIMA COISA
-
 export default function Home() {
   return (
     <>

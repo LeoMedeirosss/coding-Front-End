@@ -9,8 +9,8 @@ export function Profile() {
                 className="rounded-full h-10 w-10" 
             />
             <div className="flex flex-col flex-1">
-                <span className="text-sm font-semibold text-zinc-700">Fulano da Silva</span>
-                <span className="text-sm font-semibold text-zinc-400">fulano@github</span>
+                <span className="text-sm font-semibold text-zinc-700 dark:text-zinc-200">Fulano da Silva</span>
+                <span className="text-sm font-semibold text-zinc-400 dark:text-zinc-600">fulano@github</span>
             </div>
             <Button 
                 type="button"

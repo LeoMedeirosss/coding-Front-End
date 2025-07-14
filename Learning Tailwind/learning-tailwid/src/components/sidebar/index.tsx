@@ -10,9 +10,9 @@ import { Button } from "../Button";
 
 export function Sidebar() {
     return(
-        <Collapsible.Root className="flex flex-col gap-6 border-b border-zinc-200 px-5 py-8 left-0 top-0 data-[state=open]:h-screen data-[state=open]:bottom-0 lg:data-[state=closed]:bottom-0 p-4 right-0 fixed bg-white z-20 lg:right-auto lg:w-75 lg:border-r lg:px-5 lg-py-7 lg:data-[state=closed]:h-screen">
+        <Collapsible.Root className="flex flex-col gap-6 border-b border-zinc-200 px-5 py-8 left-0 top-0 data-[state=open]:h-screen data-[state=open]:bottom-0 lg:data-[state=closed]:bottom-0 p-4 right-0 fixed bg-white z-20 lg:right-auto lg:w-75 lg:border-r lg:px-5 lg-py-7 lg:data-[state=closed]:h-screen dark:bg-zinc-900 dark:border-zinc-800">
             <div className="flex items-center justify-between">
-                <strong className="flex items-center text-xl font-semibold text-zinc-900">
+                <strong className="flex items-center text-xl font-semibold text-zinc-900 dark:text-zinc-200">
                     <span>Untitled UI</span>
                     <Collapsible.Trigger asChild className="lg:hidden">
                         <Button variant="ghost">
